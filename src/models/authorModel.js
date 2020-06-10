@@ -1,5 +1,5 @@
 const db = require('../helpers/mysql');
-const table = "author";
+const table = 'author';
 
 module.exports = {
     getAuthorM: ((query) => {
@@ -39,7 +39,6 @@ module.exports = {
         return new Promise((resolve, reject) => {
             db.query(`UPDATE ${table} SET ? WHERE id=?`, [data, id], ((err, result) => {
                 if (err) reject(err);
-                console.log(result);
                 resolve(result);
             }));
         })
@@ -47,7 +46,6 @@ module.exports = {
     deleteAuthorByIdM: ((id) => {
         return new Promise((resolve, reject) => {
             db.query(`DELETE FROM ${table} WHERE id=?`, id, ((err, result) => {
-                console.log(result);
                 if (err) reject(err);
                 resolve(result);
             }));

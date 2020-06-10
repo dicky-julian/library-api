@@ -6,6 +6,7 @@ RestFul API for Library app, created by Express & SQL
 - mysql `npm i mysql`
 - body-parser `npm i body-parser`
 - nodemon `npm i nodemon -g`
+- dotenv `npm i dotenv`
 
 #### serve app
 - run `npm install`

@@ -1,62 +1,62 @@
 const helper = require('../helpers');
-const Author = require('../models/authorModel');
+const Genre = require('../models/genreModel');
 
 module.exports = {
-    getAuthorC: (async (req, res) => {
+    getGenreC: (async (req, res) => {
         const query = req.query;
         try {
-            const result = await Author.getAuthorM(query);
-            return helper.setResponse(res, result, "Success to get Author");
+            const result = await Genre.getGenreM(query);
+            return helper.setResponse(res, result, "Succes to get Genre");
         } catch (err) {
             return helper.setResponse(res, err.message, false);
         }
     }),
-    getAuthorByIdC: (async (req, res) => {
+    getGenreByIdC: (async (req, res) => {
         const id = req.params.id;
         try {
-            const result = await Author.getAuthorByIdM(id);
-            if (result.length) return helper.setResponse(res, result, `Success to get Author with id ${id}`);
-            throw new Error(`Author with id ${id} not found`);
+            const result = await Genre.getGenreByIdM(id);
+            if (result.length) return helper.setResponse(res, result, `Success to get Genre with id ${id}`);
+            throw new Error(`Genre with id ${id} not found`);
         } catch (err) {
             return helper.setResponse(res, err.message, false);
         }
     }),
-    addAuthorC: (async (req, res) => {
+    addGenreC: (async (req, res) => {
         const data = req.body;
         try {
             await helper.isEmpty(data);
-            const result = await Author.addAuthorM(data);
+            const result = await Genre.addGenderM(data);
             const newData = {
                 id: result.insertId,
                 ...data
             };
-            return helper.setResponse(res, newData, "Success to add Author");
+            return helper.setResponse(res, newData, "Success to add Genre");
         } catch (err) {
             return helper.setResponse(res, err.message, false);
         }
     }),
-    updateAuthorByIdC: (async (req, res) => {
+    updateGenreByIdC: (async (req, res) => {
         const data = req.body;
         const id = req.params.id;
         try {
             await helper.isEmpty(data);
-            const result = await Author.updateAuthorByIdM(id, data);
+            const result = await Genre.updateGenreByIdM(id, data);
             if (!result.changedRows) throw new Error(`Can't update cause id isn't found or your input is same with current data`);
             const newData = {
                 id: id,
                 ...data
             };
-            return helper.setResponse(res, newData, `Success to update Author with id ${id}`);
+            return helper.setResponse(res, newData, `Success to update Genre with id ${id}`);
         } catch (err) {
             return helper.setResponse(res, err.message, false);
         }
     }),
-    deleteAuthorByIdC: (async (req, res) => {
+    deleteGenreByIdC: (async (req, res) => {
         const id = req.params.id;
         try {
-            const result = await Author.deleteAuthorByIdM(id);
+            const result = await Genre.deleteGenreByIdM(id);
             if (!result.affectedRows) throw new Error(`Can't delete cause id isn't found`);
-            return helper.setResponse(res, '', `Success to delete Author with id ${id}`);
+            return helper.setResponse(res, '', `Success to delete Genre with id ${id}`);
         } catch (err) {
             return helper.setResponse(res, err.message, false);
         }
