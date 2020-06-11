@@ -38,6 +38,7 @@ Book object with all its details
 - `/book?page=1&order=title` // Returns a page of list with 10 list perpage and order these by title
 - `/book/1` // Returns a list of book with id **1**
 
+
 > **Author** 
 
 Author object with all its details  
@@ -55,6 +56,7 @@ Author object with all its details
 - `/author?name=John` // Returns a list of author where column `name like John`
 - `/author?page=1&order=name` // Returns a page of list with 10 list perpage and order these by name
 - `/author/1` // Returns a list of author with id **1**
+
 
 > **Genre** 
 
