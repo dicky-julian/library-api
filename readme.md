@@ -1,7 +1,7 @@
-### Library API
+## Library API
 RestFul API for Library app, created by Express & SQL
 
-#### dependencies
+### dependencies
 - express `npm i express`
 - mysql `npm i mysql`
 - cors `npm i cors`
@@ -10,22 +10,22 @@ RestFul API for Library app, created by Express & SQL
 - dotenv `npm i dotenv`
 - nodemon `npm i nodemon -g`
 
-#### serve app
+### serve app
 - run `npm install`
 - set up your mysql database (import db_possapp.sql to your db management (xampp)) and create env data for require config (ongoing)
 - create dotenv file in main directory according to your needs(`DB_HOST`, `DB_USER`, `DB_PASSWORD`, `DB_DATABASE`, `PORT_APP`)
 - run `npm start`
 - open your local server `default - localhost:3000`
 
-#### API Reference
+### API Reference
 
-**Book**
+#### Book
 Book object with all its details
 **Endpoint Path**: `/book`
 
 | **Request**   | **Method**    | **Parameter**     | **Description**   |
 | ------------- | ------------- | ----------------- | ----------------- |
-| `/`           | GET           | `title (string)`, `status (integer : 0 or 1)` | Get Book's resource object. |
+| `/`           | GET           | `title(string)`, `status(integer : 0 or 1)` | Get Book's resource object. |
 | `/{id}`       | GET           | N/A               | Get Book's resource object by id. |
 | `/`           | POST          | N/A               | Post Book's resource object. *require input :* title, description, image(file), id_genre, id_author |
 | `/{id}`       | PUT           | N/A               | Update Book's data by Id |
