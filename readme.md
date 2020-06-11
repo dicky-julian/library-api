@@ -3,7 +3,7 @@ RestFul API for Library app, created by Express & SQL
 
 ### Usage
 #### dependencies
-express `npm i express`.
+express `npm i express`__
 mysql `npm i mysql`.
 cors `npm i cors`.
 body-parser `npm i body-parser`.
