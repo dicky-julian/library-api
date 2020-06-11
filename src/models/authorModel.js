@@ -15,6 +15,7 @@ module.exports = {
         return new Promise((resolve, reject) => {
             db.query(querySrc, ((err, result) => {
                 if (err) reject(err);
+                if (!result.length) reject({message: `Data is empty`});
                 resolve(result);
             }));
         })
@@ -23,6 +24,7 @@ module.exports = {
         return new Promise((resolve, reject) => {
             db.query(`SELECT * FROM ${table} WHERE id=${id}`, id, ((err, result) => {
                 if (err) reject(err);
+                if (!result.length) reject({message: `Data with id ${id} can't found`});
                 resolve(result);
             }));
         })
@@ -35,7 +37,7 @@ module.exports = {
             }));
         })
     }),
-    updateAuthorByIdM: ((id, data) => {
+    updateAuthorByIdM: ((data, id) => {
         return new Promise((resolve, reject) => {
             db.query(`UPDATE ${table} SET ? WHERE id=?`, [data, id], ((err, result) => {
                 if (err) reject(err);

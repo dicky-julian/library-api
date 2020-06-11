@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 module.exports = {
     setResponse: ((res, data, status) => {
         const result = {};
@@ -11,9 +13,15 @@ module.exports = {
             data: result.data
         });
     }),
-    isEmpty: (async(data) => {
+    isEmpty: (async (data) => {
         for (let item in data) {
             if (!data[item]) throw new Error(`Column ${item} can't be empty`);
         }
+    }),
+    unlinkFile: ((dir) => {
+        fs.unlink(dir, (err) => {
+            if (err) throw err;
+            console.log(`successfully deleted ${dir}`);
+        });
     })
 }

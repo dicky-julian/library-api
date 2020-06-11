@@ -6,7 +6,7 @@ module.exports = {
         const query = req.query;
         try {
             const result = await Author.getAuthorM(query);
-            return helper.setResponse(res, result, "Success to get Author");
+            return helper.setResponse(res, result, "Successfully got Author");
         } catch (err) {
             return helper.setResponse(res, err.message, false);
         }
@@ -15,8 +15,7 @@ module.exports = {
         const id = req.params.id;
         try {
             const result = await Author.getAuthorByIdM(id);
-            if (result.length) return helper.setResponse(res, result, `Success to get Author with id ${id}`);
-            throw new Error(`Author with id ${id} not found`);
+            return helper.setResponse(res, result, `Successfully got Author with id ${id}`);
         } catch (err) {
             return helper.setResponse(res, err.message, false);
         }
@@ -26,11 +25,11 @@ module.exports = {
         try {
             await helper.isEmpty(data);
             const result = await Author.addAuthorM(data);
-            const newData = {
+            const dataAuthor = {
                 id: result.insertId,
                 ...data
             };
-            return helper.setResponse(res, newData, "Success to add Author");
+            return helper.setResponse(res, dataAuthor, "Successfully added Author");
         } catch (err) {
             return helper.setResponse(res, err.message, false);
         }
@@ -38,15 +37,15 @@ module.exports = {
     updateAuthorByIdC: (async (req, res) => {
         const data = req.body;
         const id = req.params.id;
+        const dataAuthor = {
+            id: id,
+            ...data
+        }
         try {
             await helper.isEmpty(data);
-            const result = await Author.updateAuthorByIdM(id, data);
-            if (!result.changedRows) throw new Error(`Can't update cause id isn't found or your input is same with current data`);
-            const newData = {
-                id: id,
-                ...data
-            };
-            return helper.setResponse(res, newData, `Success to update Author with id ${id}`);
+            await Author.getAuthorByIdM(id);
+            await Author.updateAuthorByIdM(dataAuthor, id);
+            return helper.setResponse(res, dataAuthor, `Successfully updated Author with id ${id}`);
         } catch (err) {
             return helper.setResponse(res, err.message, false);
         }
@@ -54,9 +53,9 @@ module.exports = {
     deleteAuthorByIdC: (async (req, res) => {
         const id = req.params.id;
         try {
-            const result = await Author.deleteAuthorByIdM(id);
-            if (!result.affectedRows) throw new Error(`Can't delete cause id isn't found`);
-            return helper.setResponse(res, '', `Success to delete Author with id ${id}`);
+            await Author.getAuthorByIdM(id);
+            await Author.deleteAuthorByIdM(id);
+            return helper.setResponse(res, '', `Successfully deleted Author with id ${id}`);
         } catch (err) {
             return helper.setResponse(res, err.message, false);
         }

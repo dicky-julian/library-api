@@ -4,25 +4,18 @@ const table = 'book';
 module.exports = {
     getBookM: ((query) => {
         let querySrc = `SELECT * FROM ${table}`;
-        let queryBook = {
-            title: null,
-            status: null,
-        }
         let queryPage = {
             startPage: (query.page - 1) * 10
         }
 
-        if (query.title) queryBook.title = query.title;
-        if (query.status) queryBook.status = query.status;
-        querySrc = querySrc.concat(` WHERE title LIKE'%${queryBook.title}%' OR status='${queryBook.status}'`)
-
+        if (query.title || query.status) querySrc = querySrc.concat(` WHERE title LIKE'%${query.title || null}%' OR status='${query.status || null}'`);
         if (query.order) querySrc = querySrc.concat(` ORDER BY ${query.order}`);
         if (query.page) querySrc = querySrc.concat(` LIMIT ${queryPage.startPage}, 10`);
 
         return new Promise((resolve, reject) => {
             db.query(querySrc, ((err, result) => {
                 if (err) reject(err);
-                if (!result.length) reject({message: `Data can't found`});
+                if (!result.length) reject({message: `Data is empty`});
                 resolve(result);
             }));
         })
@@ -31,7 +24,7 @@ module.exports = {
         return new Promise((resolve, reject) => {
             db.query(`SELECT * FROM ${table} WHERE id=${id}`, ((err, result) => {
                 if (err) reject(err);
-                if (!result.length) reject({message: `Data with id ${id} can't be found`});
+                if (!result.length) reject({message: `Data with id ${id} can't found`});
                 resolve(result);
             }));
         })
@@ -42,6 +35,22 @@ module.exports = {
                 if (err) reject(err);
                 resolve(result);
             }));
+        })
+    }),
+    updateBookByIdM: ((data, id) => {
+        return new Promise((resolve, reject) => {
+            db.query(`UPDATE ${table} SET ? WHERE id=?`, [data, id], ((err, result) => {
+                if (err) reject(err);
+                resolve(result);
+            }))
+        })
+    }),
+    deleteBookByIdM: ((id) => {
+        return new Promise((resolve, reject) => {
+            db.query(`DELETE FROM ${table} WHERE id=?`, id, ((err, result) => {
+                if (err) reject(err);
+                resolve(result);
+            }))
         })
     })
 }

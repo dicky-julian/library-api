@@ -6,7 +6,7 @@ module.exports = {
         const query = req.query;
         try {
             const result = await Genre.getGenreM(query);
-            return helper.setResponse(res, result, "Succes to get Genre");
+            return helper.setResponse(res, result, "Successfully got Genre");
         } catch (err) {
             return helper.setResponse(res, err.message, false);
         }
@@ -15,8 +15,7 @@ module.exports = {
         const id = req.params.id;
         try {
             const result = await Genre.getGenreByIdM(id);
-            if (result.length) return helper.setResponse(res, result, `Success to get Genre with id ${id}`);
-            throw new Error(`Genre with id ${id} not found`);
+            return helper.setResponse(res, result, `Successfully got Genre with id ${id}`);
         } catch (err) {
             return helper.setResponse(res, err.message, false);
         }
@@ -26,11 +25,11 @@ module.exports = {
         try {
             await helper.isEmpty(data);
             const result = await Genre.addGenderM(data);
-            const newData = {
+            const dataGenre = {
                 id: result.insertId,
                 ...data
             };
-            return helper.setResponse(res, newData, "Success to add Genre");
+            return helper.setResponse(res, dataGenre, "Successfully added Genre");
         } catch (err) {
             return helper.setResponse(res, err.message, false);
         }
@@ -38,15 +37,15 @@ module.exports = {
     updateGenreByIdC: (async (req, res) => {
         const data = req.body;
         const id = req.params.id;
+        const dataGenre = {
+            id: id,
+            ...data
+        }
         try {
             await helper.isEmpty(data);
-            const result = await Genre.updateGenreByIdM(id, data);
-            if (!result.changedRows) throw new Error(`Can't update cause id isn't found or your input is same with current data`);
-            const newData = {
-                id: id,
-                ...data
-            };
-            return helper.setResponse(res, newData, `Success to update Genre with id ${id}`);
+            await Genre.getGenreByIdM(id);
+            await Genre.updateGenreByIdM(dataGenre, id);
+            return helper.setResponse(res, dataGenre, `Successfully updated Genre with id ${id}`);
         } catch (err) {
             return helper.setResponse(res, err.message, false);
         }
@@ -54,9 +53,9 @@ module.exports = {
     deleteGenreByIdC: (async (req, res) => {
         const id = req.params.id;
         try {
-            const result = await Genre.deleteGenreByIdM(id);
-            if (!result.affectedRows) throw new Error(`Can't delete cause id isn't found`);
-            return helper.setResponse(res, '', `Success to delete Genre with id ${id}`);
+            await Genre.getGenreByIdM(id);
+            await Genre.deleteGenreByIdM(id);
+            return helper.setResponse(res, '', `Successfully deleted Genre with id ${id}`);
         } catch (err) {
             return helper.setResponse(res, err.message, false);
         }
