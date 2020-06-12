@@ -78,3 +78,13 @@ Genre object with all its details
 - `/genre?name=Myths` // Returns a list of genre where column `name like Myths`
 - `/genre?page=1&order=name` // Returns a page of list with 10 list perpage and order these by name
 - `/genre/1` // Returns a list of genre with id **1**
+
+> **Authentication** 
+
+Book object with all its details  
+**Endpoint Path**: `/`
+
+| **Request**   | **Method**    | **Parameter**     | **Description**   |
+| ------------- | ------------- | ----------------- | ----------------- |
+| `/login`           | GET           | N/A          | Get access token to send app requests |
+| `/register`        | GET           | N/A          | Register user to database |
