@@ -7,18 +7,21 @@ RestFul API for Library app, created by Express & SQL
 - mysql `npm i mysql`  
 - cors `npm i cors`  
 - body-parser `npm i body-parser`  
-- multer `npm i multer` (for parsing multipart/form data)  
+- multer `npm i multer` (for parsing multipart/form data)
+- bcrypt `npm i bcrypt`
+- jsonwebtoken `npm i jsonwebtoken`
 - dotenv `npm i dotenv`  
 - nodemon `npm i nodemon -g`  
 
 > **serve app**  
 1. run `npm install`  
 2. set up your mysql database (import db_possapp.sql to your db management (xampp)) and create env data for require config (ongoing)  
-3. create dotenv file in main directory according to your needs(`DB_HOST`, `DB_USER`, `DB_PASSWORD`, `DB_DATABASE`, `PORT_APP`)  
+3. create dotenv file in main directory according to your needs(`DB_HOST`, `DB_USER`, `DB_PASSWORD`, `DB_DATABASE`, `PORT_APP`, `SECRET_KEY`)  
 4. run `npm start`  
 5. open your local server `default - localhost:3000`  
 
 ### API Reference
+Please login first to get access token and insert that to authorization headers to get request access
 
 > **Book** 
 
