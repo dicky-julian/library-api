@@ -12,6 +12,7 @@ module.exports = {
 
         userData.password = hashPass;
         try {
+            await helper.isEmpty(userData);
             await Auth.registerM(userData);
             delete userData.password;
             return helper.setResponse(res, userData, 'Successfully created user');

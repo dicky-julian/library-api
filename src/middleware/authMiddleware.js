@@ -9,8 +9,12 @@ module.exports = {
             next();
         } catch (err) {
             if (err.name === 'TokenExpiredError') {
-                let newToken = await jwt.getToken(null, {expiresIn: 30});
-                return helper.setResponse(res, newToken, "Successfully Refresh Token");
+                const newToken = await jwt.getToken(null, {expiresIn: 30});
+                const data = {
+                        errMsg: err.name,
+                        token: newToken
+                    };
+                return helper.setResponse(res, data, false);
             }
             return helper.setResponse(res, err.message, false);
         }

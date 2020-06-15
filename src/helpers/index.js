@@ -4,8 +4,9 @@ module.exports = {
     setResponse: ((res, data, status) => {
         const result = {};
         result.status = status ? 200 : 400;
-        result.message = status ? status : "Fail";
+        result.message = status ? status : data.errMsg || "Fail";
         result.data = data || '';
+        delete data.errMsg;
 
         return res.status(result.status).json({
             status: result.status,
