@@ -1,17 +1,17 @@
-const jwt = require('jsonwebtoken');
-const config = require('../config');
+const jwt = require('../helpers/jwt');
 const helper = require('../helpers');
 
 module.exports = {
-    verifyJwt: ((req, res, next) => {
-        const token = req. headers.authorization;
-        console.log(token);
+    verifyJwt: (async(req, res, next) => {
+        const token = req.headers.authorization;
         try {
-            const decoded = jwt.verify(token, config.jwtSecretKey);
-            console.log(decoded);
-            req.decodedToken = decoded;
+            req.decoded = await jwt.verifyToken(token);
             next();
         } catch (err) {
+            if (err.name === 'TokenExpiredError') {
+                let newToken = await jwt.getToken(null, {expiresIn: 30});
+                return helper.setResponse(res, newToken, "Successfully Refresh Token");
+            }
             return helper.setResponse(res, err.message, false);
         }
     })

@@ -5,7 +5,10 @@ const config = {
         password: process.env.DB_PASSWORD,
         database: process.env.DB_DATABASE
     },
-    jwtSecretKey: process.env.SECRET_KEY
+    jwt: {
+        secret: process.env.SECRET_KEY,
+        secretRefresh: process.env.SECRET_KEY_REFRESH
+    }
 }
 
 module.exports = config;

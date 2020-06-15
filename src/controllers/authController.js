@@ -1,7 +1,6 @@
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const config = require('../config');
 const helper = require('../helpers');
+const jwt = require('../helpers/jwt');
 const Auth = require('../models/authModel');
 const User = require('../models/userModel');
 
@@ -32,7 +31,7 @@ module.exports = {
             const tokenData = {
                 ...userByUname[0]
             }
-            const token = jwt.sign(tokenData, config.jwtSecretKey);
+            const token = await jwt.getToken(tokenData, {expiresIn: 30});
             userByUname[0].token = token;
             return helper.setResponse(res, userByUname, 'Successfully login to system');
         } catch (err) {
