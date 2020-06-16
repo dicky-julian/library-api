@@ -15,7 +15,9 @@ module.exports = {
         return new Promise((resolve, reject) => {
             if (!token) throw new Error("No token provided");
             jwt.verify(token, config.jwt.secret, ((err, decoded) => {
-                if (err) reject(err);
+                if (err) {
+                    reject(err);
+                }
                 resolve(decoded);
             }));
         })

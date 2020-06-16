@@ -10,6 +10,7 @@ RestFul API for Library app, created by Express & SQL
 - multer `npm i multer` (for parsing multipart/form data)
 - bcrypt `npm i bcrypt`
 - jsonwebtoken `npm i jsonwebtoken`
+- jwt-decode `npm i jwt-decode` (decode jwt token)
 - dotenv `npm i dotenv`  
 - nodemon `npm i nodemon -g`  
 

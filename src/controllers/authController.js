@@ -30,11 +30,12 @@ module.exports = {
 
             delete userByUname[0].password;
             const tokenData = {
-                ...userByUname[0]
+                id: userByUname[0].id,
+                role: userByUname[0].role
             }
             const token = await jwt.getToken(tokenData, {expiresIn: 30});
-            userByUname[0].token = token;
-            return helper.setResponse(res, userByUname, 'Successfully login to system');
+            tokenData.token = token;
+            return helper.setResponse(res, tokenData, 'Successfully login to system');
         } catch (err) {
             return helper.setResponse(res, err.message, false);
         }

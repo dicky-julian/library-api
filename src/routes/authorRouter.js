@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const authorController = require('../controllers/authorController');
+const authMiddleware = require('../middleware/authMiddleware');
 
-router.get('/', authorController.getAuthorC);
+router.get('/', authMiddleware.verifyAdmin, authorController.getAuthorC);
 router.get('/:id', authorController.getAuthorByIdC);
-router.post('/', authorController.addAuthorC);
-router.put('/:id', authorController.updateAuthorByIdC);
-router.delete('/:id', authorController.deleteAuthorByIdC);
+router.post('/', authMiddleware.verifyAdmin, authorController.addAuthorC);
+router.put('/:id', authMiddleware.verifyAdmin, authorController.updateAuthorByIdC);
+router.delete('/:id', authMiddleware.verifyAdmin, authorController.deleteAuthorByIdC);
 
 module.exports = router;
