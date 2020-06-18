@@ -10,7 +10,7 @@ const storage = multer.diskStorage({
     })
 });
 
-const upload = multer({
+let upload = multer({
     storage: storage
 }).single('image');
 

@@ -24,7 +24,7 @@ module.exports = {
         return new Promise((resolve, reject) => {
             db.query(`SELECT * FROM ${table} WHERE id=${id}`, ((err, result) => {
                 if (err) reject(err);
-                if (!result.length) reject({message: `Data with id ${id} can't found`});
+                if (!result.length) reject({message: `Book with id ${id} can't found`});
                 resolve(result);
             }));
         })

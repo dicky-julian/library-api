@@ -1,5 +1,7 @@
 const helper = require('../helpers');
 const Book = require('../models/bookModel');
+const Author = require('../models/authorModel');
+const Genre = require('../models/genreModel');
 
 module.exports = {
     getBookC: (async (req, res) => {
@@ -20,13 +22,16 @@ module.exports = {
             return helper.setResponse(res, err.message, false);
         }
     }),
-    addBookC:(async(req, res) => {
+    addBookC: (async(req, res) => {
+        const data = req.body;
         try {
-            if (!req.file) throw new Error('Image can`t be  empty');
-            await helper.isEmpty(req.body);
+            if (!req.file) throw new Error('Image can`t be empty');
+            await helper.isEmpty(data);
+            await Author.getAuthorByIdM(data.id_author);
+            await Genre.getGenreByIdM(data.id_genre);
             const dataBook = {
                 id: null,
-                ...req.body,
+                ...data,
                 image: req.file.filename
             }
             const result = await Book.addBookM(dataBook);
@@ -46,6 +51,8 @@ module.exports = {
         }
         try {
             await helper.isEmpty(data);
+            await Author.getAuthorByIdM(data.id_author);
+            await Genre.getGenreByIdM(data.id_genre);
             const getDataBook = await Book.getBookByIdM(id);
             if (req.file) {
                 helper.unlinkFile(`${__dirname}./../public/images/${getDataBook[0].image}`);
