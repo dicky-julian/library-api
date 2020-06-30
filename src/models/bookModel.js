@@ -31,7 +31,7 @@ module.exports = {
     }),
     addBookM: ((data) => {
         return new Promise((resolve, reject) => {
-            db.query(`INSERT INTO ${table} (title, description, image, id_genre, id_author, status) VALUES ('${data.title}', '${data.description}', '${data.image}', ${data.id_genre}, ${data.id_author}, 1)`, ((err, result) => {
+            db.query(`INSERT INTO ${table} (title, description, image, id_genre, id_author, release_date, rating, status) VALUES ("${data.title}", "${data.description}", "${data.image}", ${data.id_genre}, ${data.id_author}, "${data.release_date}", 9, 1)`, ((err, result) => {
                 if (err) reject(err);
                 resolve(result);
             }));

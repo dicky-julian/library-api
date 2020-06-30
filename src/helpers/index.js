@@ -5,8 +5,8 @@ module.exports = {
         const result = {};
         result.status = status ? 200 : 400;
         result.message = status ? status : data.errMsg || "Fail";
-        result.data = data || '';
         delete data.errMsg;
+        result.data = data || '';
 
         return res.status(result.status).json({
             status: result.status,

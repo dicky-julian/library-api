@@ -15,7 +15,7 @@ module.exports = {
                     role: decoded.role
                 }
                 req.decoded = decodedData;
-                const newToken = await jwt.getToken(decodedData, { expiresIn: 30 });
+                const newToken = await jwt.getToken(decodedData, { expiresIn: 31000 });
                 const data = {
                     errMsg: err.name,
                     refreshToken: newToken
@@ -28,7 +28,10 @@ module.exports = {
     verifyAdmin: ((req, res, next) => {
         const decoded = req.decoded;
         const role = decoded.role;
-        if (role !== 'admin') return helper.setResponse(res, 'You dont currently have Permission to access this request');
+        const data = {
+            errMsg: 'PermissionError'
+        }
+        if (role !== 'admin') return helper.setResponse(res, data);
         next();
     })
 }

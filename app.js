@@ -7,23 +7,15 @@ const app = express();
 const db = require('./src/helpers/mysql');
 const routes = require('./src/routes');
 
-const allowedOrigins = [
-    'https://kawan-kkn.web.app'
-];
+// app.use(function (req, res, next) {
+//     res.header('Access-Control-Allow-Origin', '*');
+//     res.header('Access-Control-Allow-Headers', 'Origin, Authorization, X-Requested-With, Content-Type, Accept');
+//     next();
+// });
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', routes);
-app.use(cors({
-    origin: ((origin, callback) => {
-        if (!origin) return callback(null, true);
-        if (allowedOrigins.indexOf(origin) === -1) {
-            const msg = 'The CORS policy for this site doesnt allow access from the specified Origin.';
-            return callback(new Error(msg), false);
-        }
-        return callback(null, true);
-    }),
-    exposedHeaders: ['Content-Length', 'X-Foo', 'X-Bar'],
-}));
+app.use(cors());
 
 db.connect((err) => {
     if (err) return err;
