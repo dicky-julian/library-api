@@ -15,7 +15,7 @@ module.exports = {
         return new Promise((resolve, reject) => {
             db.query(`SELECT * FROM ${table} WHERE username=?`, uname, ((err, result) => {
                 if (err) reject(err);
-                if (!result.length) reject({message: `Can't found data with username ${uname}`});
+                if (!result.length) reject({message: {errMsg: 'InvalidUsername'}});
                 resolve(result);
             }))
         })

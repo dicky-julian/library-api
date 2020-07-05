@@ -3,19 +3,26 @@ const table = 'book';
 
 module.exports = {
     getBookM: ((query) => {
+        console.log(query.title);
         let querySrc = `SELECT * FROM ${table}`;
         let queryPage = {
             startPage: (query.page - 1) * 10
         }
 
-        if (query.title || query.status) querySrc = querySrc.concat(` WHERE title LIKE'%${query.title || null}%' OR status='${query.status || null}'`);
+        if (query.title || query.status || query.id_genre) querySrc = querySrc.concat(` WHERE title LIKE'%${query.title || null}%' OR status='${query.status || null}' OR id_genre='${query.id_genre || null}' `);
+        console.log(querySrc);
         if (query.order) querySrc = querySrc.concat(` ORDER BY ${query.order}`);
-        if (query.page) querySrc = querySrc.concat(` LIMIT ${queryPage.startPage}, 10`);
+        if (query.orderType) querySrc = querySrc.concat(` ${query.orderType}`);
+        if (query.page) {
+            querySrc = querySrc.concat(` LIMIT ${queryPage.startPage}, 10`);
+        } else if (query.limit) {
+            querySrc = querySrc.concat(` LIMIT ${parseInt(query.limit)}`);
+        }
 
         return new Promise((resolve, reject) => {
             db.query(querySrc, ((err, result) => {
                 if (err) reject(err);
-                if (!result.length) reject({message: `Data is empty`});
+                if (!result.length) reject({message: {errMsg: 'EmptyData'}});
                 resolve(result);
             }));
         })
@@ -31,7 +38,7 @@ module.exports = {
     }),
     addBookM: ((data) => {
         return new Promise((resolve, reject) => {
-            db.query(`INSERT INTO ${table} (title, description, image, id_genre, id_author, release_date, rating, status) VALUES ("${data.title}", "${data.description}", "${data.image}", ${data.id_genre}, ${data.id_author}, "${data.release_date}", 9, 1)`, ((err, result) => {
+            db.query(`INSERT INTO ${table} (title, description, image, id_genre, id_author, release_date, rating, status) VALUES ("${data.title}", "${data.description}", "${data.image}", ${data.id_genre}, ${data.id_author}, "${data.release_date}", ${data.rating}, 1)`, ((err, result) => {
                 if (err) reject(err);
                 resolve(result);
             }));

@@ -15,7 +15,7 @@ module.exports = {
                     role: decoded.role
                 }
                 req.decoded = decodedData;
-                const newToken = await jwt.getToken(decodedData, { expiresIn: 31000 });
+                const newToken = await jwt.getToken(decodedData, { expiresIn: '7d' });
                 const data = {
                     errMsg: err.name,
                     refreshToken: newToken
