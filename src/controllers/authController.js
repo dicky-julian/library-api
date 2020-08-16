@@ -35,7 +35,7 @@ module.exports = {
                 fullname: userByUname[0].fullname,
                 role: userByUname[0].role
             }
-            const token = await jwt.getToken(tokenData, {expiresIn: '7d'});
+            const token = await jwt.getToken(tokenData);
             tokenData.token = token;
             return helper.setResponse(res, tokenData, 'Successfully login to system');
         } catch (err) {

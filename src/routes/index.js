@@ -7,11 +7,13 @@ const bookRouter = require('./bookRouter');
 const authorRouter = require('./authorRouter');
 const genreRouter = require('./genreRouter');
 const userRouter = require('./userRouter');
+const transactionRouter = require('./transactionRouter');
 
 router.use('/', authRouter);
 router.use('/book', authMiddleware.verifyJwt, bookRouter);
 router.use('/author', authMiddleware.verifyJwt, authorRouter);
 router.use('/genre', authMiddleware.verifyJwt, genreRouter);
+router.use('/transaction', authMiddleware.verifyJwt, transactionRouter);
 router.use('/user', userRouter);
 router.use('/images', express.static(`${__dirname}./../public/images`));
 

@@ -3,21 +3,22 @@ const table = 'book';
 
 module.exports = {
     getBookM: ((query) => {
-        console.log(query.title);
         let querySrc = `SELECT * FROM ${table}`;
         let queryPage = {
-            startPage: (query.page - 1) * 10
+            startPage: (query.page - 1) * 9
         }
 
         if (query.title || query.status || query.id_genre) querySrc = querySrc.concat(` WHERE title LIKE'%${query.title || null}%' OR status='${query.status || null}' OR id_genre='${query.id_genre || null}' `);
-        console.log(querySrc);
+
         if (query.order) querySrc = querySrc.concat(` ORDER BY ${query.order}`);
         if (query.orderType) querySrc = querySrc.concat(` ${query.orderType}`);
         if (query.page) {
-            querySrc = querySrc.concat(` LIMIT ${queryPage.startPage}, 10`);
+            querySrc = querySrc.concat(` LIMIT ${queryPage.startPage}, 9`);
         } else if (query.limit) {
             querySrc = querySrc.concat(` LIMIT ${parseInt(query.limit)}`);
         }
+
+        console.log(querySrc);
 
         return new Promise((resolve, reject) => {
             db.query(querySrc, ((err, result) => {
