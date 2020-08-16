@@ -18,7 +18,10 @@ app.use(cors());
 app.use('/', routes);
 
 db.connect((err) => {
-    if (err) return err;
+    if (err) {
+        console.log(err);
+        return;
+    }
     console.log('Database has Connected');
 });
 
