@@ -2,10 +2,10 @@
   "name": "library-app",
   "version": "1.0.0",
   "description": "Create RESTful API for library app",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "nodemon index.js"
   },
   "author": "Dicky Julian",
   "license": "ISC",
