@@ -31,7 +31,7 @@ Book object with all its details
 
 | **Request**   | **Method**    | **Parameter**     | **Description**   |
 | ------------- | ------------- | ----------------- | ----------------- |
-| `/`           | GET           | `title(string)`, `status(integer : 0 or 1)`, `page(integer)`, `order(string)` | Get Book's resource object. |
+| `/`           | GET           | `title(string)`, `status(integer : 1 or 2)`, `page(integer)`, `order(string)` | Get Book's resource object. |
 | `/{id}`       | GET           | N/A               | Get Book's resource object by id. |
 | `/`           | POST          | N/A               | Post Book's resource object.  **require input :** title, description, image(file), id_genre, id_author |
 | `/{id}`       | PUT           | N/A               | Update Book's data by Id |
@@ -87,5 +87,5 @@ Book object with all its details
 
 | **Request**   | **Method**    | **Parameter**     | **Description**   |
 | ------------- | ------------- | ----------------- | ----------------- |
-| `/login`           | GET           | N/A          | Get access token to send app requests |
-| `/register`        | GET           | N/A          | Register user to database |
+| `/login`      | POST          | N/A               | Get access token to send app requests |
+| `/register`   | POST          | N/A               | Register user to database |
