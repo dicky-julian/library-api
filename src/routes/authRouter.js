@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/authController');
 
-router.get('/', (req, res) => res.send('<h2> Hello Deployment 2! </h2>'));
+router.get('/', (req, res) => res.send('<h2> Hello Deployment 3! </h2>'));
 router.post('/login', authController.loginC);
 router.post('/register', authController.registerC);
 
